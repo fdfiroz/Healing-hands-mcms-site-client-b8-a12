@@ -1,13 +1,15 @@
-import { Navbar, Typography, Button, IconButton, Collapse,
+import { Navbar, Typography, Button, IconButton, Collapse, Avatar,
 } from "@material-tailwind/react";
 import { useEffect, useState } from "react";
 import PropTypes from 'prop-types'
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
+import useAuth from "../hooks/useAuth";
 
 
 const MainLayout = ({children}) => {
   const [openNav, setOpenNav] = useState(false);
- 
+  const { user, logOut } = useAuth();
+
   useEffect(() => {
     window.addEventListener(
       "resize",
@@ -74,22 +76,42 @@ const MainLayout = ({children}) => {
         </Typography>
         <div className="flex items-center gap-4">
           <div className="mr-4 hidden lg:block">{navList}</div>
-          <div className="flex items-center gap-x-1">
-            <Button
-              variant="text"
-              size="sm"
-              className="hidden lg:inline-block"
-            >
-              <span>Log In</span>
-            </Button>
-            <Button
-              variant="gradient"
-              size="sm"
-              className="hidden lg:inline-block"
-            >
-              <span>Register</span>
-            </Button>
-          </div>
+          {
+                            user?.email ? (
+                            <div className="flex items-center gap-6 ">
+                                <Avatar src={user.photoURL} alt="avatar" />
+                                <Button
+                                variant="gradient"
+                                size="sm"
+                                className="hidden lg:inline-block"
+                                onClick={logOut}
+                            >
+                                <span>Logout</span>
+                            </Button>
+                            </div>
+                                ):(
+                                    <div className="flex items-center gap-x-1">
+                            <Link to={"/login"}>
+                            <Button
+                                variant="text"
+                                size="sm"
+                                className="hidden lg:inline-block"
+                            >
+                                <span>Log In</span>
+                            </Button>
+                            </Link>
+                            <Link to="/register">
+                            <Button
+                                variant="gradient"
+                                size="sm"
+                                className="hidden lg:inline-block"
+                            >
+                                <span>Register</span>
+                            </Button>
+                            </Link>
+                        </div>
+                                )
+                        }
           <IconButton
             variant="text"
             className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
@@ -131,14 +153,30 @@ const MainLayout = ({children}) => {
       </div>
       <Collapse open={openNav}>
         {navList}
-        <div className="flex items-center gap-x-1">
-          <Button fullWidth variant="text" size="sm" className="">
-            <span>Log In</span>
-          </Button>
-          <Button fullWidth variant="gradient" size="sm" className="">
-            <span>Register</span>
-          </Button>
-        </div>
+        {
+                        user?.email ? (
+                            <div className="flex items-center">
+                                <Button fullWidth variant="gradient" size="sm" className="" onClick={logOut}>
+                            <span>Logout</span>
+                        </Button>
+                            </div>
+                        )
+                        :(
+                        <div className="flex items-center gap-x-1">
+                            <Button fullWidth variant="text" size="sm" className="">
+                            <Link to={"/login"}>
+                            <span>Log In</span>
+                            </Link>
+                        </Button>
+                        <Button fullWidth variant="gradient" size="sm" className="">
+                        <Link to={"/register"}>
+                            <span>Register</span>
+                        </Link>
+                        </Button>
+                        
+                    </div>
+                        )
+                    }
       </Collapse>
     </Navbar>
     <div className="mx-auto max-w-screen-xxl">
