@@ -16,6 +16,7 @@ import PaymentHistory from "../pages/PaymentHistory";
 import FeedbackAndRatings from "../pages/FeedbackAndRatings";
 import AcceptedCamps from "../pages/AcceptedCamps";
 import AddUpcomingCamp from "../pages/AddUpcomingCamp";
+import AddACamp from "../pages/AddACamp";
 
 const routes = createBrowserRouter([
     {
@@ -54,7 +55,7 @@ const routes = createBrowserRouter([
             //Organizer Dashboard Routes
             {
               path: "add-a-camp",
-              element: <div>Add A Camp</div>,
+              element: <AddACamp/>,
             },
             {
               path: "manage-camps",

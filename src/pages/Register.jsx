@@ -21,7 +21,7 @@ const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_ke
 
 
 const Register = () => {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm();
+  const { register, handleSubmit } = useForm();
   const [role, setRole] = useState()
   const navigate = useNavigate()
   const { createUser, handleUpdateProfile } = useAuth()
@@ -42,11 +42,7 @@ const Register = () => {
       return;
     }
     console.log(data.image[0])
-    const user = {
-      email: data.email,
-      role: role,
-
-    }
+    
     const toastId = toast.loading('Creating user ...');
     const imageFile = { image: data.image[0] }
 
@@ -56,6 +52,13 @@ const Register = () => {
       }
     });
     if (res.data.success) {
+      const user = {
+      name: data.name,
+      email: data.email,
+      role: role,
+      image: res.data.data.display_url
+
+    }
       try {
         await createUser(data.email, data.password);
         await axiosSecure.post("/users", user)
@@ -92,7 +95,7 @@ const Register = () => {
               <Select defaultValue="default" label="User Type" onChange={(e) => setRole(e)} required>
                 <Option value="Participants">Participants</Option>
                 <Option value="Organizers">Organizers</Option>
-                <Option value="Healthcare Professionals">Healthcare Professionals</Option>
+                <Option value="Healthcare-Professionals">Healthcare Professionals</Option>
               </Select>
             </div>
 
@@ -134,7 +137,7 @@ const Register = () => {
               Password
             </Typography>
             <Input
-              {...register("Password", { required: true, min: 6, maxLength: 9, pattern: /^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/i })}
+              {...register("password", { required: true })}
               type="password"
               size="lg"
               placeholder="********"
@@ -151,7 +154,7 @@ const Register = () => {
           <Typography color="gray" className="mt-4 text-center font-normal">
             Already have an account?{" "}
             <a href="#" className="font-medium text-gray-900">
-              Sign In
+              Register
             </a>
           </Typography>
         </form>
