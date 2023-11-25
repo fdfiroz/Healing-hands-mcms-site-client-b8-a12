@@ -9,7 +9,7 @@ import {
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import useAuth from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAxios from "../hooks/useAxios";
 import axios from "axios";
@@ -153,9 +153,9 @@ const Register = () => {
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
             Already have an account?{" "}
-            <a href="#" className="font-medium text-gray-900">
-              Register
-            </a>
+            <NavLink to="/login" className="font-medium text-gray-900">
+              Login Now
+            </NavLink>
           </Typography>
         </form>
       </Card>

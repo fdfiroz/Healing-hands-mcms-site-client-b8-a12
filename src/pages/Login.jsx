@@ -5,7 +5,7 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import toast from "react-hot-toast";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { useForm } from "react-hook-form";
 
@@ -87,10 +87,10 @@ const Login = () => {
             sign up
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
-            Already have an account?{" "}
-            <a href="#" className="font-medium text-gray-900">
-              Login
-            </a>
+            Do not have an account?{" "}
+            <NavLink to="/register" className="font-medium text-gray-900">
+              Register Now
+            </NavLink>
           </Typography>
         </form>
       </Card>
