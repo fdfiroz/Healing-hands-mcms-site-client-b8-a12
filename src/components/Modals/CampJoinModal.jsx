@@ -1,29 +1,25 @@
 /* eslint-disable react/prop-types */
 import {
-  Button,
   Dialog,
   DialogHeader,
   DialogBody,
-  DialogFooter,
   Card,
   Typography,
 } from "@material-tailwind/react";
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "../Checkout/CheckoutForm";
-import { useState } from "react";
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENTS_KEY);
 
 // const [stripePromise, setStripePromise] = useState(() => loadStripe(import.meta.env.VITE_PAYMENTS_KEY))
-const CampJoinModal = ({setOpen, open, bookingInfo}) => {
-console.log(bookingInfo)
+const CampJoinModal = ({setJoinOpen, joinOpen, bookingInfo}) => {
     
     return (
     <>
       <Dialog
         size={"md"}
-        open={open}
-        handler={()=>setOpen(!open)}
+        open={joinOpen}
+        handler={()=>setJoinOpen(!joinOpen)}
         animate={{
             mount: { scale: 1, y: 0 },
             unmount: { scale: 0.9, y: -100 },
@@ -47,7 +43,7 @@ console.log(bookingInfo)
       <Elements stripe={stripePromise}>
           <CheckoutForm
           bookingInfo={bookingInfo}
-          closeModal={()=>setOpen(!open)}
+          closeModal={()=>setJoinOpen(!joinOpen)}
           />
       </Elements>
       

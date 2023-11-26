@@ -55,6 +55,7 @@ const Register = () => {
       const user = {
       name: data.name,
       email: data.email,
+      phone: data.phone,
       role: role,
       image: res.data.data.display_url
 
@@ -62,7 +63,7 @@ const Register = () => {
       try {
         await createUser(data.email, data.password);
         await axiosSecure.post("/users", user)
-        await handleUpdateProfile(data.name, res.data.data.display_url)
+        await handleUpdateProfile(data.name, res.data.data.display_url, data.phone)
           .then(() => {
 
             toast.success('User Created', { id: toastId });
@@ -128,6 +129,19 @@ const Register = () => {
               {...register("email", { required: true })}
               size="lg"
               placeholder="name@mail.com"
+              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+              labelProps={{
+                className: "before:content-none after:content-none",
+              }}
+            />
+            <Typography variant="h6" color="blue-gray" className="-mb-3">
+              Your Phone Number
+            </Typography>
+            <Input
+              {...register("phone", { required: true })}
+              type="tel"
+              size="lg"
+              placeholder="Your Phone Number"
               className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
               labelProps={{
                 className: "before:content-none after:content-none",

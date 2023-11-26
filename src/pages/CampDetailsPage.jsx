@@ -23,13 +23,16 @@ import Loading from "../components/Loading/Loading";
 import CampJoinModal from "../components/Modals/CampJoinModal";
 import { useState } from "react";
 import useRole from "../hooks/useRole";
+import RegisterModal from "../components/Modals/RegisterModal";
+import Container from "../components/Containar/Container";
 
 const CampDetailsPage = () => {
-  const { loading } = useAuth()
+  const { loading, user } = useAuth()
   const params = useParams()
   const axios = useAxios()
   const [role] = useRole()
-  const [open, setOpen] = useState(false);
+  const [joinOpen, setJoinOpen] = useState(false);
+  const [registerOpen, setRegisterOpen] = useState(false);
   console.log(params.id)
   const { data, isPending } = useQuery({
     queryKey: ["camp", params.id],
@@ -38,18 +41,19 @@ const CampDetailsPage = () => {
       return data?.data
     }
   })
-console.log(role)
+console.log(data)
 
-const handleJoin = () => {
-  console.log(open)
-  setOpen(!open)
+const handelRegister = () => {
+  console.log(registerOpen)
+  setRegisterOpen(!registerOpen)
 }
 
   if (loading) return <Loading />
   if (isPending) return <Loading />
   return (
     <>
-      <Card className="max-w-full p-6 overflow-hidden">
+      <Container>
+      <Card className="max-w-full overflow-hidden">
         <CardHeader
           floated={false}
           shadow={false}
@@ -61,8 +65,9 @@ const handleJoin = () => {
             className="w-full object-cover overflow-hidden aspect-video"
             alt="ui/ux review check"
           />
-          <div className="flex mt-4 ml-6">
-            <Chip value={data?.targetAudience} variant="gradient" />
+          <div className="flex mt-4 ml-6 gap-4">
+            <Chip color="red" value={data?.targetAudience} variant="gradient" className="rounded-full"/>
+            <Chip color="green" value={data?.specialServices} variant="gradient" className="rounded-full" />
           </div>
         </CardHeader>
         <CardBody className=" object-cover overflow-hidden">
@@ -93,10 +98,10 @@ const handleJoin = () => {
                 </Typography>
               </div>
             </div>
-            <div>
+            <div className="flex flex-col items-center gap-1">
               {
                 role?.data?.role === "Participants" &&
-                <Button onClick={handleJoin} variant="gradient" size="md">Pay and Join</Button> 
+                <Button onClick={handelRegister} variant="gradient" size="sm">Register</Button> 
               }
             </div>
           </div>
@@ -127,7 +132,8 @@ const handleJoin = () => {
           <Typography className="font-normal">Date and time : {data?.date} {data?.time}</Typography>
         </CardFooter>
       </Card>
-      <CampJoinModal open={open} setOpen={setOpen} bookingInfo={data} />
+      </Container>
+      <RegisterModal registerOpen={registerOpen} setRegisterOpen={setRegisterOpen} user={user} campData={data}/>
     </>
   )
 }
