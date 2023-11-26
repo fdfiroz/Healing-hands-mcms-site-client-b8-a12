@@ -22,11 +22,13 @@ import useAuth from "../hooks/useAuth";
 import Loading from "../components/Loading/Loading";
 import CampJoinModal from "../components/Modals/CampJoinModal";
 import { useState } from "react";
+import useRole from "../hooks/useRole";
 
 const CampDetailsPage = () => {
   const { loading } = useAuth()
   const params = useParams()
   const axios = useAxios()
+  const [role] = useRole()
   const [open, setOpen] = useState(false);
   console.log(params.id)
   const { data, isPending } = useQuery({
@@ -36,6 +38,8 @@ const CampDetailsPage = () => {
       return data?.data
     }
   })
+console.log(role)
+
 const handleJoin = () => {
   console.log(open)
   setOpen(!open)
@@ -90,7 +94,10 @@ const handleJoin = () => {
               </div>
             </div>
             <div>
-              <Button onClick={handleJoin} variant="gradient" size="md">Pay and Join</Button>
+              {
+                role?.data?.role === "Participants" &&
+                <Button onClick={handleJoin} variant="gradient" size="md">Pay and Join</Button> 
+              }
             </div>
           </div>
         </CardBody>
@@ -120,7 +127,7 @@ const handleJoin = () => {
           <Typography className="font-normal">Date and time : {data?.date} {data?.time}</Typography>
         </CardFooter>
       </Card>
-      <CampJoinModal open={open} setOpen={setOpen} />
+      <CampJoinModal open={open} setOpen={setOpen} bookingInfo={data} />
     </>
   )
 }

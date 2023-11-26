@@ -7,7 +7,7 @@ import Container from "../components/Containar/Container"
 const AvailableCamps = () => {
   const axios = useAxios()
   const {data:camps, isLoading} = useQuery({
-    queryKey: "availableCamps",
+    queryKey: ["availableCamps"],
     queryFn: () => {
       const data = axios.get("/camps")
       return data
