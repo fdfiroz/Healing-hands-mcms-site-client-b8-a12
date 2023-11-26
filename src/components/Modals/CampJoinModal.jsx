@@ -9,11 +9,21 @@ import {
 import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import CheckoutForm from "../Checkout/CheckoutForm";
+import { useEffect, useState } from "react";
+import useAxios from "../../hooks/useAxios";
 const stripePromise = loadStripe(import.meta.env.VITE_PAYMENTS_KEY);
 
 // const [stripePromise, setStripePromise] = useState(() => loadStripe(import.meta.env.VITE_PAYMENTS_KEY))
-const CampJoinModal = ({setJoinOpen, joinOpen, bookingInfo}) => {
-    
+const CampJoinModal = ({setJoinOpen, joinOpen, campId, regId}) => {
+  const axios = useAxios()  
+  const [bookingInfo, setBookingInfo] = useState({})
+  useEffect(() =>{
+    axios.get(`/camps/${campId}`)
+    .then((res) => {
+      setBookingInfo(res.data)
+    })
+  },[campId]) 
+ console.log(regId)
     return (
     <>
       <Dialog
@@ -26,7 +36,7 @@ const CampJoinModal = ({setJoinOpen, joinOpen, bookingInfo}) => {
           }}
       >
         <DialogHeader className=" flex flex-col item-center">
-        <Typography variant="h6" color="blue-gray">
+        <Typography variant="h6">
             {bookingInfo?.campName}
           </Typography>
           <Typography variant="small">
@@ -44,6 +54,7 @@ const CampJoinModal = ({setJoinOpen, joinOpen, bookingInfo}) => {
           <CheckoutForm
           bookingInfo={bookingInfo}
           closeModal={()=>setJoinOpen(!joinOpen)}
+          regId={regId}
           />
       </Elements>
       

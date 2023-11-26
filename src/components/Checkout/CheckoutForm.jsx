@@ -9,7 +9,7 @@ import useAuth from '../../hooks/useAuth'
 import useAxios from '../../hooks/useAxios'
 import { Button } from '@material-tailwind/react'
 
-const CheckoutForm = ({ bookingInfo, closeModal }) => {
+const CheckoutForm = ({ bookingInfo, closeModal, regId}) => {
   const stripe = useStripe()
   const elements = useElements()
   const { user } = useAuth()
@@ -18,7 +18,7 @@ const CheckoutForm = ({ bookingInfo, closeModal }) => {
   const [processing, setProcessing] = useState(false)
   const navigate = useNavigate()
   const axios = useAxios()
-  console.log(bookingInfo)
+  console.log(regId)
   useEffect(() => {
     // create payment intent
     if (bookingInfo?.campFees > 0) {
@@ -106,7 +106,7 @@ const CheckoutForm = ({ bookingInfo, closeModal }) => {
         })
 
         // Update room status in db
-        await axios.patch(`/popular-count/${bookingInfo?._id}`, {popularCount: 1})
+        await axios.patch(`/status-change/${regId}`, {paymentStatus: "Paid", registerStatus:"Confirmed", transactionId: paymentIntent.id })
         const text = `Booking Successful! Pay Id ${paymentIntent.id}`
         toast.success(text, { id: toastId })
         navigate('/dashboard/payment-history')
