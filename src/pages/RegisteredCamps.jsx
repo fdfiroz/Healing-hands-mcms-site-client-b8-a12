@@ -6,17 +6,18 @@ import useAuth from "../hooks/useAuth";
 import useAxios from "../hooks/useAxios";
 import { useState } from "react";
 import toast from "react-hot-toast";
+import Loading from "../components/Loading/Loading";
  
 const TABLE_HEAD = ["Camp Name", "Date and Time", "Venue", "Camp Fees", "Payment Status", "Confirmation Status", "Actions"];
  
 
 const RegisteredCamps = () => {
   const axios = useAxios();
-  const {user} = useAuth();
+  const {user, loading} = useAuth();
   const [regId, setRegId ] = useState('')
   const [campId, setCampId ] = useState('')
   const [joinOpen, setJoinOpen ] = useState(false)
-const {data:camps, refetch} = useQuery({
+const {data:camps, refetch, isLoading} = useQuery({
   queryKey: ["registered-camps"],
   queryFn: async () => {
     const data = await axios.get(`/register-camps/${user?.email}`)
@@ -47,6 +48,9 @@ const handelCancel = async(id)=>{
     console.log(err)
   }
 }
+if (loading) return <Loading/>
+if (isLoading) return <Loading/>
+
   return (
     <>
    <Container>

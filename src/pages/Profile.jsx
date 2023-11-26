@@ -1,3 +1,4 @@
+import { Button, Chip } from "@material-tailwind/react"
 import Container from "../components/Containar/Container"
 import useAuth from "../hooks/useAuth"
 import useRole from "../hooks/useRole"
@@ -26,38 +27,33 @@ const Profile = () => {
         />
       </a>
 
-      <p className='p-2 px-4 text-xs text-white bg-pink-500 rounded-full'>
-        {role && role?.data.role.toUpperCase()}
-      </p>
+      <Chip value={role && role?.data?.role.toUpperCase()} className='p-2 px-4 text-xs text-white  rounded-full'/>
       <p className='mt-2 text-xl font-medium text-gray-800 '>
         {role && role?.data.role} Id: {user?.uid}
       </p>
       <div className='w-full p-2 mt-4 rounded-lg '>
-        <div className='flex flex-col items-center justify-center text-sm text-gray-600 mb-4  '>
+        <div className='flex flex-col items-start justify-start text-sm text-gray-600 mb-4  '>
           <p className='flex gap-4'>
-            Name:
-            <span className='font-bold text-black '>
+            Name:<span className='font-bold text-black '>
               {user?.displayName}
             </span>
           </p>
           <p className='flex gap-4'>
-            Email
-            <span className='font-bold text-black '>{user?.email}</span>
+            Email:<span className='font-bold text-black '>{user?.email}</span>
           </p>
           <p className='flex gap-4'>
-            Phone
-            <span className='font-bold text-black '>{user?.phone||"No Phone Number"}</span>
+            Phone:  <span className='font-bold text-black '>{user?.phone||"No Phone Number"}</span>
           </p>
 
           
         </div>
-        <div className="flex flex-col justify-center items-center"> 
-            <button className='bg-[#F43F5E] px-10 py-1 rounded-lg text-white cursor-pointer hover:bg-[#af4053] block mb-1'>
+        <div className="flex flex-col justify-center items-center gap-3"> 
+            <Button variant="gradient" size="sm" className="rounded-full">
               Update Profile
-            </button>
-            <button className='bg-[#F43F5E] px-7 py-1 rounded-lg text-white cursor-pointer hover:bg-[#af4053]'>
+            </Button>
+            <Button variant="gradient" size="sm" className="rounded-full">
               Change Password
-            </button>
+            </Button>
           </div>
       </div>
     </div>

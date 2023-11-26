@@ -85,18 +85,13 @@ const CheckoutForm = ({ bookingInfo, closeModal, regId}) => {
         campName: bookingInfo?.campName,
         location: bookingInfo?.location,
         date: bookingInfo?.date,
-        description: bookingInfo?.description,
-        healthcarePros: bookingInfo?.healthcarePros,
-        image: bookingInfo?.image,
         orgId : bookingInfo?.orgId,
-        orgImage: bookingInfo?.orgImage,
         orgName : bookingInfo?.orgName,
-        specialServices : bookingInfo?.specialServices,
-        targetAudience : bookingInfo?.targetAudience,
-        time : bookingInfo?.time,
         campId : bookingInfo?._id,
         transactionId: paymentIntent.id,
         paymentDate: new Date(),
+        paymentStatus: "Paid", 
+        registerStatus:"Confirmed"
       }
       try {
         // save payment information to the server
