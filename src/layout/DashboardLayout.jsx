@@ -21,6 +21,7 @@ import OrganizerNav from "../components/DashboardNav/OrganizerNav";
 import HealthcareProfessionalNav from "../components/DashboardNav/HealthcareProfessionalNav";
 import ParticipantsNav from "../components/DashboardNav/ParticipantsNav";
 import { useState } from "react";
+import logo from "../assets/logo.png";
 
 
 
@@ -36,12 +37,12 @@ const DashboardLayout = () => {
     <div className="flex">
     <div>
       <Tooltip content="Open Menu" interactive={true} placement="right">
-    <Bars3CenterLeftIcon className="h-10 w-10 fixed" onClick={openDrawer}></Bars3CenterLeftIcon>
+    <Bars3CenterLeftIcon className="h-10 w-10 fixed z-50" onClick={openDrawer}></Bars3CenterLeftIcon>
     </Tooltip>
       <Drawer overlay={false} open={open} onClose={closeDrawer}>
         <div className="mb-2 flex items-center justify-between p-4">
           <Typography variant="h5" color="blue-gray">
-            Material Tailwind
+          <img className="w-13 h-5 lg:w-25 lg:h-10" src={logo} alt="" />
           </Typography>
           <IconButton variant="text" color="blue-gray" onClick={closeDrawer}>
             <svg

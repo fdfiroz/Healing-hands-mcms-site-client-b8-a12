@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import PropTypes from 'prop-types'
 import { Link, NavLink } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
+import logo from "../assets/logo.png";
 
 
 const MainLayout = ({ children }) => {
@@ -73,7 +74,7 @@ const MainLayout = ({ children }) => {
             href="#"
             className="mr-4 cursor-pointer py-1.5 font-medium"
           >
-            Material Tailwind
+            <img className="w-13 h-5 lg:w-25 lg:h-10" src={logo} alt="" />
           </Typography>
           <div className="flex items-center gap-4">
             <div className="mr-4 hidden lg:block">{navList}</div>
