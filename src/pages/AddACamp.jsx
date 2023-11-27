@@ -13,12 +13,14 @@ import useAxios from "../hooks/useAxios";
 import toast from "react-hot-toast";
 import { useState } from "react";
 import useRole from "../hooks/useRole";
+import Container from "../components/Containar/Container";
 
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
 const AddACamp = () => {
-  const [specialServices, setSpecialServices] = useState()
+  const [specialServices, setSpecialServices] = useState("")
+  const [targetAudience , setTargetAudience ] = useState("")
   const { register, handleSubmit, formState: { errors } } = useForm();
   const axiosSecure = useAxios()
   const [role] = useRole()
@@ -26,7 +28,11 @@ const AddACamp = () => {
 
 
   const onSubmit = async (data) => {
-
+    //if any of the fields are empty, return
+    if (specialServices || targetAudience|| !data.campName || !data.healthcarePros || !data.location || !data.fees || !data.date || !data.time || !data.description || !data.image) {
+      toast.error("Please fill all the fields")
+      return
+    }
     const toastId = toast.loading('Adding Camp...');
     const imageFile = { image: data.image[0] }
 
@@ -43,6 +49,7 @@ const AddACamp = () => {
         campName: data.campName,
         specialServices: specialServices,
         healthcarePros: data.healthcarePros,
+        targetAudience: targetAudience,
         location: data.location,
         image: res.data.data.display_url,
         campFees: data.fees,
@@ -62,7 +69,8 @@ const AddACamp = () => {
   console.log(specialServices)
 
   return (
-    <Card color="transparent" shadow={false}>
+      <Container>
+        <Card className="py-6" color="transparent" shadow={false}>
       <Typography variant="h4" color="blue-gray">
         Add A Camp
       </Typography>
@@ -81,6 +89,17 @@ const AddACamp = () => {
               <Option value="Vision Testing">Vision Testing</Option>
               <Option value="Cancer Screenings">Cancer Screenings</Option>
               <Option value="Diabetes Consultations">Diabetes Consultations</Option>
+            </Select>
+          </div>
+          <Typography variant="h6" color="blue-gray" className="-mb-3">
+          Target Audience
+          </Typography>
+          <div className="w-full">
+            <Select required defaultValue="default" label="Specialized Services Provider" onChange={(e) => setTargetAudience(e)}>
+              <Option value="Adult">Adult</Option>
+              <Option value="General Public">General Public</Option>
+              <Option value="Children">Children</Option>
+              
             </Select>
           </div>
           <Typography variant="h6" color="blue-gray" className="-mb-3">
@@ -195,6 +214,7 @@ const AddACamp = () => {
         </Button>
       </form>
     </Card>
+      </Container>
   )
 }
 
