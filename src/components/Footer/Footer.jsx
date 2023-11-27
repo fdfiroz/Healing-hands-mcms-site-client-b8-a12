@@ -1,8 +1,10 @@
 import { Typography } from "@material-tailwind/react";
  import logo from "../../assets/logo2.png";
+import Container from "../Containar/Container";
 export function Footer() {
   return (
-    <footer className="w-full bg-white p-8">
+   <Container>
+     <footer className="w-full bg-white p-8 absolute bottom-0 left-0">
       <div className="flex flex-row flex-wrap items-center justify-center gap-y-6 gap-x-12 bg-white text-center md:justify-between">
         <img src={logo} alt="logo-ct" className="w-12" />
         <ul className="flex flex-wrap items-center gap-y-2 gap-x-8">
@@ -53,5 +55,6 @@ export function Footer() {
         &copy; 2023 Firoz Ahammed
       </Typography>
     </footer>
+   </Container>
   );
 }

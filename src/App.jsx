@@ -8,8 +8,8 @@ function App() {
     <>
     <MainLayout>
         <Outlet></Outlet>
-    <Footer/>
     </MainLayout>
+    <Footer/>
     </>
   )
 }
