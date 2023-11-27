@@ -35,6 +35,7 @@ const handleJoin = (id, regId) => {
   setJoinOpen(!joinOpen)
 }
 const handelCancel = async(id)=>{
+  //TO :DO Have parmission to cancel
   console.log(id)
   try{
     axios.patch(`/cancel-register/${id}`, {registerStatus: "Canceled"})
