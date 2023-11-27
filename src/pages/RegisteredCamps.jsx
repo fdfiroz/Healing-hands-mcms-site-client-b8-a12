@@ -7,6 +7,7 @@ import useAxios from "../hooks/useAxios";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import Loading from "../components/Loading/Loading";
+import Swal from "sweetalert2";
  
 const TABLE_HEAD = ["Camp Name", "Date and Time", "Venue", "Camp Fees", "Payment Status", "Confirmation Status", "Actions"];
  
@@ -35,19 +36,31 @@ const handleJoin = (id, regId) => {
   setJoinOpen(!joinOpen)
 }
 const handelCancel = async(id)=>{
-  //TO :DO Have parmission to cancel
+  Swal.fire({
+    title: "Do you want to Cancel Registaion?",
+    showDenyButton: true,
+    confirmButtonText: "Cancel Now",
+    denyButtonText: `Don't Cancel`
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      try{
+        axios.patch(`/cancel-register/${id}`, {registerStatus: "Canceled"})
+        .then(res => {
+          console.log(res)
+          toast.success("Camp Canceled")
+          refetch()
+        })
+      }
+      catch(err){
+        console.log(err)
+      }
+    } else if (result.isDenied) {
+      toast.success("Changes are not saved")
+    }
+  });
   console.log(id)
-  try{
-    axios.patch(`/cancel-register/${id}`, {registerStatus: "Canceled"})
-    .then(res => {
-      console.log(res)
-      toast.success("Camp Canceled")
-      refetch()
-    })
-  }
-  catch(err){
-    console.log(err)
-  }
+  
 }
 if (loading) return <Loading/>
 if (isLoading) return <Loading/>
@@ -150,7 +163,7 @@ if (isLoading) return <Loading/>
                 >
                  {
                   camp?.registerStatus !== "Pending" || camp?.registerStatus === "Canceled" ? <Button variant="outlined" disabled size="sm" className="rounded-full">
-                  Cancel
+                  Canceled
                   </Button> : <Button onClick={()=>handelCancel(camp._id)} variant="gradient" size="sm" className="rounded-full">
                   Cancel
                   </Button> 

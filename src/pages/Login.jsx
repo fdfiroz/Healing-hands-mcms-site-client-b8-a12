@@ -84,7 +84,7 @@ const Login = () => {
 
           </div>
           <Button type="submit" className="mt-6" fullWidth>
-            sign up
+            Login
           </Button>
           <Typography color="gray" className="mt-4 text-center font-normal">
             Do not have an account?{" "}
