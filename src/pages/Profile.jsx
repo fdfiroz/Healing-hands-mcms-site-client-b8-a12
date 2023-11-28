@@ -4,18 +4,41 @@ import useAuth from "../hooks/useAuth"
 import useRole from "../hooks/useRole"
 import ProfileUpdate from "../components/Modals/ProfileUpdate"
 import { useState } from "react"
+import Loading from "../components/Loading/Loading"
+import Swal from "sweetalert2"
+import toast from "react-hot-toast"
 //TODO: Profile Update and Password Change Functionality
 
+
 const Profile = () => {
-  const { user } = useAuth()
-  const [role] = useRole()
+  const { user, loading, handleUpdatePassword } = useAuth()
+  const [role, isLoading] = useRole()
   const [open, setOpen] = useState(false)
   console.log(user)
 
   const handelUpdate = () => {
     setOpen(!open)
   }
-
+const handelChangePass = () => {
+  Swal.fire({
+    title: "Do you want Change Password?",
+    showDenyButton: true,
+    confirmButtonText: "Yes",
+    denyButtonText: `No`
+  }).then((result) => {
+    /* Read more about isConfirmed, isDenied below */
+    if (result.isConfirmed) {
+      handleUpdatePassword()
+      toast.success("Email Sent Check Your Mail")
+    } else if (result.isDenied) {
+      toast.error("Password Not Changed")
+    }
+  });
+}
+  
+console.log(role)
+  if (isLoading) return <Loading/>
+if (loading) return <Loading/>
   return (
    <Container>
      <div className='flex justify-center items-center h-full'>
@@ -35,7 +58,7 @@ const Profile = () => {
         />
       </a>
 
-      <Chip value={role && role?.data?.role.toUpperCase()} className='p-2 px-4 text-xs text-white  rounded-full'/>
+      <Chip value={role && role?.data?.role?.toUpperCase()} className='p-2 px-4 text-xs text-white  rounded-full'/>
       <p className='mt-2 text-xl font-medium text-gray-800 '>
         {role && role?.data.role} Id: {user?.uid}
       </p>
@@ -50,7 +73,7 @@ const Profile = () => {
             Email:<span className='font-bold text-black '>{user?.email}</span>
           </p>
           <p className='flex gap-4'>
-            Phone:  <span className='font-bold text-black '>{user?.phone||"No Phone Number"}</span>
+            Phone:  <span className='font-bold text-black '>{role?.data?.phone||"No Phone Number"}</span>
           </p>
 
           
@@ -59,7 +82,7 @@ const Profile = () => {
             <Button onClick={handelUpdate} variant="gradient" size="sm" className="rounded-full">
               Update Profile
             </Button>
-            <Button variant="gradient" size="sm" className="rounded-full">
+            <Button onClick={handelChangePass} variant="gradient" size="sm" className="rounded-full">
               Change Password
             </Button>
           </div>
@@ -67,7 +90,7 @@ const Profile = () => {
     </div>
   </div>
 </div>
-<ProfileUpdate open={open} setOpen={setOpen}></ProfileUpdate>
+<ProfileUpdate open={open} setOpen={setOpen} user={user} role={role?.data}></ProfileUpdate>
    </Container>
   )
 }

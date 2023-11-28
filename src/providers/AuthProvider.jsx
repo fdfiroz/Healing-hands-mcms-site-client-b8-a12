@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword,  signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, sendPasswordResetEmail, signInWithEmailAndPassword,  signOut, updateProfile } from "firebase/auth";
 import app from "../config/firebase.config";
 import useAxios from "../hooks/useAxios";
 export const AuthContext = createContext({});
@@ -37,6 +37,11 @@ const AuthProvider = ({ children }) => {
         })
     }
 
+    const handleUpdatePassword = () => {
+        sendPasswordResetEmail(auth, user?.email)
+    }
+
+
     useEffect(() => {
         const unSubscribe = onAuthStateChanged(auth, currentUser => {
             console.log(currentUser);
@@ -68,6 +73,7 @@ const AuthProvider = ({ children }) => {
         createUser,
         signIn,
         handleUpdateProfile,
+        handleUpdatePassword,
         logOut
     }
     return (

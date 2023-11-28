@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   Button,
   Dialog,
@@ -9,7 +9,88 @@ import {
   Typography,
 } from "@material-tailwind/react";
 import Container from "../Containar/Container";
-const ProfileUpdate = ({open, setOpen}) => {
+import useAuth from "../../hooks/useAuth";
+import axios from "axios";
+import toast from "react-hot-toast";
+import useAxios from "../../hooks/useAxios";
+
+
+const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
+const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
+
+const ProfileUpdate = ({open, setOpen, user, role}) => {
+  const {handleUpdateProfile} = useAuth()
+  const axiosSecure = useAxios()
+  const [updateProfile, setUpdateProfile] = useState({
+    displayName: "",
+    image: "",
+    phone: "",
+  
+  })
+  const [file, setFile] = useState();
+
+console.log(role.phone)
+  useEffect(()=>{
+    if(user){
+      setUpdateProfile({
+        displayName: user?.displayName,
+        image: user?.photoURL,
+        phone: role.phone,
+      })
+    }
+  }, [user, role.phone])
+   
+  const onChange = (e) =>{
+    setUpdateProfile({
+      ...updateProfile,
+      [e.target.name]: e.target.value
+    })
+  }
+  const handelSubmit = async(id)=>{
+    if (typeof file == "object") {
+      const imageFile = { image: file };
+
+      const res = await axios.post(image_hosting_api, imageFile, {
+        headers: {
+          "content-type": "multipart/form-data",
+        },
+      });
+      if (res.data.success) {
+        const user = {
+          ...updateProfile,
+          image: res.data.data.display_url,
+        };
+        const toastId = toast.loading("Updating Camp...");
+
+        try {
+          await handleUpdateProfile(user.displayName, user.image);
+          await axiosSecure.patch(`/users/${role._id}`, user);
+          toast.success("Updated Added", { id: toastId });
+        } catch (error) {
+          console.log(error);
+          toast.error(error.message, { id: toastId });
+        }
+      }
+    } else {
+      const toastId = toast.loading("Updating Camp...");
+
+      try {
+        await handleUpdateProfile(updateProfile.displayName, updateProfile.image);
+        await axiosSecure.patch(`/users/${id}`, updateProfile);
+        toast.success("Updated Added", { id: toastId });
+      } catch (error) {
+        console.log(error);
+        toast.error(error.message, { id: toastId });
+      }
+
+    }
+    handleUpdateProfile(updateProfile.displayName, )
+    .then((res)=>{
+      console.log(res)
+
+    })
+    setOpen(!open)
+  }
 
   return (
     <>
@@ -24,7 +105,9 @@ const ProfileUpdate = ({open, setOpen}) => {
             Profile Name
           </Typography>
           <Input
-            name="name"
+            onChange={onChange}
+            value={updateProfile?.displayName}
+            name="displayName"
             type="text"
             size="md"
             placeholder="Profile Name"
@@ -39,6 +122,9 @@ const ProfileUpdate = ({open, setOpen}) => {
             Profile Image
           </Typography>
           <input
+          onChange={(event) => {
+            setFile(event.target.files[0]);
+          }}
             name="image"
             placeholder="Profile Image"
             type="file"
@@ -54,8 +140,9 @@ const ProfileUpdate = ({open, setOpen}) => {
             Phone Number
           </Typography>
           <Input
-            name="phoneNumber"
-
+            name="phone"
+            onChange={onChange}
+            value={updateProfile?.phone}
             type="tel"
             size="md"
             placeholder="Phone Number"
@@ -65,13 +152,15 @@ const ProfileUpdate = ({open, setOpen}) => {
             }}
           />
             </div>
-            <Button variant="gradient" color="green">
+            <Button             
+            onClick={()=>handelSubmit(role._id)}
+            variant="gradient" color="green">
             <span>Confirm</span>
           </Button>
           <Button
+            onClick={()=>setOpen(!open)}
             variant="text"
             color="red"
-            onClick={() => setOpen(!open)}
             className="mr-1"
           >
             <span>Cancel</span>
