@@ -2,12 +2,20 @@ import { Button, Chip } from "@material-tailwind/react"
 import Container from "../components/Containar/Container"
 import useAuth from "../hooks/useAuth"
 import useRole from "../hooks/useRole"
+import ProfileUpdate from "../components/Modals/ProfileUpdate"
+import { useState } from "react"
 //TODO: Profile Update and Password Change Functionality
 
 const Profile = () => {
   const { user } = useAuth()
   const [role] = useRole()
+  const [open, setOpen] = useState(false)
   console.log(user)
+
+  const handelUpdate = () => {
+    setOpen(!open)
+  }
+
   return (
    <Container>
      <div className='flex justify-center items-center h-full'>
@@ -48,7 +56,7 @@ const Profile = () => {
           
         </div>
         <div className="flex flex-col justify-center items-center gap-3"> 
-            <Button variant="gradient" size="sm" className="rounded-full">
+            <Button onClick={handelUpdate} variant="gradient" size="sm" className="rounded-full">
               Update Profile
             </Button>
             <Button variant="gradient" size="sm" className="rounded-full">
@@ -59,6 +67,7 @@ const Profile = () => {
     </div>
   </div>
 </div>
+<ProfileUpdate open={open} setOpen={setOpen}></ProfileUpdate>
    </Container>
   )
 }
