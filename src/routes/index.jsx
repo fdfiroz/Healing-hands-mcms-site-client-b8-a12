@@ -17,6 +17,10 @@ import FeedbackAndRatings from "../pages/FeedbackAndRatings";
 import AcceptedCamps from "../pages/AcceptedCamps";
 import AddUpcomingCamp from "../pages/AddUpcomingCamp";
 import AddACamp from "../pages/AddACamp";
+import PrivateRoute from "./PrivateRoute";
+import OrganizersRoute from "./OrganizersRoute";
+import ParticipantsRoute from "./ParticipantsRoute";
+import HealthcareProfessionalsRoute from "./HealthcareProfessionalsRoute";
 
 const routes = createBrowserRouter([
     {
@@ -38,7 +42,7 @@ const routes = createBrowserRouter([
         },
         {
           path: '/camp-details/:id',
-          element: <CampDetailsPage />,
+          element: <PrivateRoute><CampDetailsPage /></PrivateRoute> ,
         },
         {
           path: '/contact-us',
@@ -50,42 +54,79 @@ const routes = createBrowserRouter([
           children: [
             {
               index: true,
-              element: <Profile/>,
+              element: <PrivateRoute><Profile/></PrivateRoute>,
             },
             //Organizer Dashboard Routes
             {
               path: "add-a-camp",
-              element: <AddACamp/>,
+              element: <PrivateRoute>
+                  <OrganizersRoute>
+                  <AddACamp/>
+                  </OrganizersRoute>
+                </PrivateRoute>,
             },
             {
               path: "manage-camps",
-              element: <ManageCamps />,
+              element: <PrivateRoute>
+                <OrganizersRoute>
+                <ManageCamps />
+                </OrganizersRoute>
+                </PrivateRoute>,
             },
             {
               path: "manage-registered-camps",
-              element: <ManageRegisteredCamps />,
+              element: <PrivateRoute>
+                <OrganizersRoute>
+                <ManageRegisteredCamps />
+                </OrganizersRoute>
+                </PrivateRoute>,
             },
             {
               path: "add-upcoming-camp",
-              element: <AddUpcomingCamp />,
+              element: <PrivateRoute>
+                <OrganizersRoute>
+
+                <AddUpcomingCamp />
+                </OrganizersRoute>
+                </PrivateRoute>,
             },
             //Participant Dashboard Routes
             {
               path: "registered-camps",
-              element: <RegisteredCamps/>,
+              element: <PrivateRoute>
+                <ParticipantsRoute>
+
+                <RegisteredCamps />
+                </ParticipantsRoute>
+                </PrivateRoute>,
             },
             {
               path: "payment-history",
-              element: <PaymentHistory/>,
+              element: <PrivateRoute>
+                <ParticipantsRoute>
+
+                <PaymentHistory />
+                </ParticipantsRoute>
+                </PrivateRoute>,
             },
             {
               path: "feedback-and-ratings",
-              element: <FeedbackAndRatings/>,
+              element: <PrivateRoute>
+                <ParticipantsRoute>
+
+                <FeedbackAndRatings />
+                </ParticipantsRoute>
+                </PrivateRoute>,
             },
             //Healthcare Professional Dashboard Routes
             {
               path: "accepted-camps",
-              element: <AcceptedCamps/>,
+              element: <PrivateRoute>
+                <HealthcareProfessionalsRoute>
+
+                <AcceptedCamps />
+                </HealthcareProfessionalsRoute>
+                </PrivateRoute>,
             },
 
           ],
