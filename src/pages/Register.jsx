@@ -29,6 +29,10 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     console.log({ ...data, role })
+    if(role === undefined){
+      toast.error("Please select a role.");
+      return;
+    }
     if (data.password.length < 8) {
       toast.error("The password must be at least 6 characters long.");
       return;
@@ -54,7 +58,7 @@ const Register = () => {
     if (res.data.success) {
       const user = {
       name: data.name,
-      email: data.email,
+      email: data.email.toLowerCase(),
       phone: data.phone,
       role: role,
       image: res.data.data.display_url
