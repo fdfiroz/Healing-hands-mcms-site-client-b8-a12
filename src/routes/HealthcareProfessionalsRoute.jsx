@@ -1,13 +1,13 @@
-import { Navigate } from 'react-router-dom'
-import Loader from '../components/Shared/Loader'
-import useRole from '../hooks/useRole'
+import { Navigate } from "react-router-dom"
+import Loading from "../components/Loading/Loading"
+import useRole from "../hooks/useRole"
 
-const HealthcareProfessionalsRoute = () => {
+const HealthcareProfessionalsRoute = ({children}) => {
   const [role, isLoading] = useRole()
 
-  if (isLoading) return <Loader />
+  if (isLoading) return <Loading />
   if (role.data.role === 'Healthcare-Professionals') return children
   return <Navigate to='/dashboard' />
 }
 
-export default Healthcare-ProfessionalsRoute
+export default HealthcareProfessionalsRoute
