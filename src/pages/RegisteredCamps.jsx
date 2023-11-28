@@ -18,7 +18,7 @@ const RegisteredCamps = () => {
   const [regId, setRegId ] = useState('')
   const [campId, setCampId ] = useState('')
   const [joinOpen, setJoinOpen ] = useState(false)
-const {data:camps, refetch, isLoading} = useQuery({
+const {data:camps, refetch, isLoading, isPending} = useQuery({
   queryKey: ["registered-camps"],
   queryFn: async () => {
     const data = await axios.get(`/register-camps/${user?.email}`)
@@ -62,6 +62,7 @@ const handelCancel = async(id)=>{
   console.log(id)
   
 }
+// console.log(isPending)
 if (loading) return <Loading/>
 if (isLoading) return <Loading/>
 

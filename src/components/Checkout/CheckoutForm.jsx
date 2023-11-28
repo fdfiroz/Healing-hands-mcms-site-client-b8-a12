@@ -101,7 +101,7 @@ const CheckoutForm = ({ bookingInfo, closeModal, regId}) => {
         })
 
         // Update room status in db
-        await axios.patch(`/status-change/${regId}`, {paymentStatus: "Paid", registerStatus:"Confirmed", transactionId: paymentIntent.id })
+        await axios.patch(`/status-change/${regId}`, {paymentStatus: "Paid", transactionId: paymentIntent.id })
         const text = `Booking Successful! Pay Id ${paymentIntent.id}`
         toast.success(text, { id: toastId })
         navigate('/dashboard/payment-history')

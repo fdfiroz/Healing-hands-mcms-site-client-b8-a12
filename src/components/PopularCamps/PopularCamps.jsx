@@ -2,8 +2,9 @@ import React from 'react'
 import useAxios from '../../hooks/useAxios'
 import { useQuery } from '@tanstack/react-query'
 import PopularCampsCard from './PopularCampsCard'
-import { Typography } from '@material-tailwind/react'
+import { Button, Typography } from '@material-tailwind/react'
 import Container from '../Containar/Container'
+import { Link } from 'react-router-dom'
 
 const PopularCamps = () => {
     const axios = useAxios()
@@ -28,6 +29,9 @@ const PopularCamps = () => {
                 <PopularCampsCard key={popularCamp._id} popularCamp={popularCamp} />
             ))
         }
+    </div>
+    <div className='flex items-center my-5 justify-center'>
+        <Link to={"/available-camps"}><Button>See All</Button></Link>
     </div>
     </div>
     </Container>
