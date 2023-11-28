@@ -57,7 +57,7 @@ const UpdateCampModal = ({ open, setOpen, camp, refetch }) => {
   const handelUpdate = async (id) => {
     console.log(id);
     if (typeof file == "object") {
-      const imageFile = { image: data.image[0] };
+      const imageFile = { image: file };
 
       const res = await axios.post(image_hosting_api, imageFile, {
         headers: {
