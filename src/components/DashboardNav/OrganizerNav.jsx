@@ -37,6 +37,15 @@ const OrganizerNav = () => {
           Add Upcoming Camp
         </ListItem>
     </NavLink>
+    <NavLink to={"manage-upcoming-camp"}>
+    <ListItem >
+          <ListItemPrefix>
+            <ClockIcon className="h-5 w-5" />
+          </ListItemPrefix>
+          Manage Upcoming Camp
+        </ListItem>
+    </NavLink>
+    
     </>
   )
 }

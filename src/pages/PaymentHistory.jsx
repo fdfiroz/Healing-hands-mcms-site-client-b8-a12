@@ -3,7 +3,8 @@ import useAuth from "../hooks/useAuth";
 import useAxios from "../hooks/useAxios";
 import { useQuery } from "@tanstack/react-query";
 import Loading from "../components/Loading/Loading";
- 
+import { Helmet } from "react-helmet-async";
+
 const TABLE_HEAD = ["Camp Name", "Date and Time", "Venue", "Camp Fees", "Payment Status", "Confirmation Status"];
 
 const PaymentHistory = () => {
@@ -22,6 +23,10 @@ console.log(payments)
 if (loading) return <Loading/>
 if (isLoading) return <Loading/>
   return (
+   <>
+   <Helmet>
+      <title>Payment History</title>
+   </Helmet>
     <div className="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
       <Card className="h-full w-full overflow-scroll">
     <table className="w-full min-w-max table-auto text-left">
@@ -80,6 +85,7 @@ if (isLoading) return <Loading/>
     </table>
   </Card>
   </div>
+   </>
   )
 }
 

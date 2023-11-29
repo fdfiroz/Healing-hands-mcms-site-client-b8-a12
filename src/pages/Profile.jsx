@@ -7,7 +7,7 @@ import { useState } from "react"
 import Loading from "../components/Loading/Loading"
 import Swal from "sweetalert2"
 import toast from "react-hot-toast"
-//TODO: Profile Update and Password Change Functionality
+import { Helmet } from "react-helmet-async";
 
 
 const Profile = () => {
@@ -40,6 +40,10 @@ console.log(role)
   if (isLoading) return <Loading/>
 if (loading) return <Loading/>
   return (
+   <>
+   <Helmet>
+      <title>Dashboard || Profile</title>
+   </Helmet>
    <Container>
      <div className='flex justify-center items-center h-full'>
   
@@ -92,6 +96,7 @@ if (loading) return <Loading/>
 </div>
 <ProfileUpdate open={open} setOpen={setOpen} user={user} role={role?.data}></ProfileUpdate>
    </Container>
+   </>
   )
 }
 

@@ -5,6 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import Container from "../components/Containar/Container";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
+import { Helmet } from "react-helmet-async";
 
 const TABLE_HEAD = ["Register Name", "Register Email", "Camp Name", "Date and Time", "Venue", "Fees", "Payment Status", "Confirmation Status", "Actions"];
 
@@ -66,6 +67,10 @@ const ManageRegisteredregisters = () => {
     console.log(id)
   }
   return (
+    <>
+    <Helmet>
+      <title>Manage Registered Camps</title>
+    </Helmet>
     <Container>
       <div className="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
         <Card className="h-full w-full overflow-scroll">
@@ -212,6 +217,7 @@ const ManageRegisteredregisters = () => {
       </div>
 
     </Container>
+    </>
   )
 }
 

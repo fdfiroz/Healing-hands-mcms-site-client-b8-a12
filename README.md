@@ -28,4 +28,20 @@ The Medical Camp Management System (MCMS) is an user-friendly MERN (MongoDB, Exp
 4. As an organizer, manage camps by creating new camps, updating camp information, or deleting camps as needed.
 5. Navigate through the user-friendly interface to access various features and functionalities based on your user role.
 
-## Live
+## Live link of the project
+https://mcms-b8a12.web.app/
+
+##Demo Credentials
+-Organizer
+
+email: fdfiroz@gmail.com
+password: 12345678@Fd
+
+-Participant
+
+email: firozahamed0@gmail.com
+password: 12345678@Fd
+
+-Healthcare Professional
+email:firozOdin@gmail.com
+password: 12345678@Fd

@@ -21,6 +21,7 @@ import PrivateRoute from "./PrivateRoute";
 import OrganizersRoute from "./OrganizersRoute";
 import ParticipantsRoute from "./ParticipantsRoute";
 import HealthcareProfessionalsRoute from "./HealthcareProfessionalsRoute";
+import ManageUpcomingCamp from "../pages/ManageUpcomingCamp";
 
 const routes = createBrowserRouter([
     {
@@ -87,6 +88,15 @@ const routes = createBrowserRouter([
                 <OrganizersRoute>
 
                 <AddUpcomingCamp />
+                </OrganizersRoute>
+                </PrivateRoute>,
+            },
+            {
+              path: "manage-upcoming-camp",
+              element: <PrivateRoute>
+                <OrganizersRoute>
+
+                <ManageUpcomingCamp />
                 </OrganizersRoute>
                 </PrivateRoute>,
             },

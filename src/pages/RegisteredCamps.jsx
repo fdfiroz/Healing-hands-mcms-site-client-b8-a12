@@ -8,6 +8,7 @@ import { useState } from "react";
 import toast from "react-hot-toast";
 import Loading from "../components/Loading/Loading";
 import Swal from "sweetalert2";
+import { Helmet } from "react-helmet-async";
  
 const TABLE_HEAD = ["Camp Name", "Date and Time", "Venue", "Camp Fees", "Payment Status", "Confirmation Status", "Actions"];
  
@@ -68,6 +69,9 @@ if (isLoading) return <Loading/>
 
   return (
     <>
+    <Helmet>
+      <title>Registered Camps</title>
+    </Helmet>
    <Container>
   <div className="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
   <Card className="h-full w-full overflow-scroll">
@@ -163,12 +167,28 @@ if (isLoading) return <Loading/>
                   className="font-normal"
                 >
                  {
-                  camp?.registerStatus !== "Pending" || camp?.registerStatus === "Canceled" ? <Button variant="outlined" disabled size="sm" className="rounded-full">
-                  Canceled
-                  </Button> : <Button onClick={()=>handelCancel(camp._id)} variant="gradient" size="sm" className="rounded-full">
-                  Cancel
-                  </Button> 
-                 }
+                          camp?.registerStatus === "Confirmed" ? (
+                            <Button variant="outlined" size="sm" className="rounded-full">
+                              Confirmed
+                            </Button>
+                          ) : (
+                            camp?.paymentStatus === "Paid" ? (
+                              <Button variant="outlined" disabled size="sm" className="rounded-full">
+                                Paid
+                              </Button>
+                            ) : (
+                              camp?.registerStatus !== "Pending" || camp?.registerStatus === "Canceled" ? (
+                                <Button variant="outlined" disabled size="sm" className="rounded-full">
+                                  Canceled
+                                </Button>
+                              ) : (
+                                <Button onClick={() => handleCancel(camp._id)} variant="gradient" size="sm" className="rounded-full">
+                                  Cancel
+                                </Button>
+                              )
+                            )
+                          )
+                        }
                 </Typography>
               </td>
             </tr>

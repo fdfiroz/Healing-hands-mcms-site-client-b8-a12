@@ -14,6 +14,7 @@ import toast from "react-hot-toast";
 import { useState } from "react";
 import useRole from "../hooks/useRole";
 import Container from "../components/Containar/Container";
+import { Helmet } from "react-helmet-async";
 
 const image_hosting_key = import.meta.env.VITE_IMAGE_HOSTING_KEY;
 const image_hosting_api = `https://api.imgbb.com/1/upload?key=${image_hosting_key}`;
@@ -69,8 +70,13 @@ const AddUpcomingCamp = () => {
   console.log(specialServices)
 
   return (
+      <>
+      <Helmet>
+        <title>Add Upcoming Camp</title>
+      </Helmet>
       <Container>
-        <Card className="py-6" color="transparent" shadow={false}>
+        <Typography variant="h2" color="blue-gray"> Developer Working on it</Typography>
+        {/* <Card className="py-6" color="transparent" shadow={false}>
       <Typography variant="h4" color="blue-gray">
         Add A Upcoming Camp
       </Typography>
@@ -213,8 +219,9 @@ const AddUpcomingCamp = () => {
           Add Camp
         </Button>
       </form>
-    </Card>
+    </Card> */}
       </Container>
+      </>
   )
 }
 

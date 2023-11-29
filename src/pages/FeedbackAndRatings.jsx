@@ -5,7 +5,8 @@ import { Button, Card, Typography } from "@material-tailwind/react";
 import { useState } from "react";
 import FeedBackModal from "../components/Modals/FeedBackModal";
 import Loading from "../components/Loading/Loading";
- 
+import { Helmet } from "react-helmet-async";
+
 const TABLE_HEAD = ["Camp Name", "Date and Time", "Venue", "Camp Fees", "Payment Status", "Confirmation Status", "Actions"];
 
 const FeedbackAndRatings = () => {
@@ -30,6 +31,10 @@ const handelFeedback = (data) => {
   if (loading) return <Loading/>
 if (isLoading) return <Loading/>
   return (
+    <>
+    <Helmet>
+      <title>Feedback and Ratings</title>
+    </Helmet>
     <Card className="h-full w-full overflow-scroll">
       <table className="w-full min-w-max table-auto text-left">
         <thead>
@@ -94,6 +99,7 @@ if (isLoading) return <Loading/>
       </table>
       <FeedBackModal open={open} setOpen={setOpen} feedback={feedback} />
     </Card>
+    </>
   )
 }
 

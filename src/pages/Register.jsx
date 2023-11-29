@@ -13,6 +13,7 @@ import { NavLink, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAxios from "../hooks/useAxios";
 import axios from "axios";
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -82,102 +83,107 @@ const Register = () => {
 
   };
   return (
+    <>
+    <Helmet>
+      <title>Healing Hands || Register</title>
+    </Helmet>
     <div className="mx-auto max-w-screen-xxl flex justify-center py-12 ">
 
-      <Card color="transparent" shadow={false}>
-        <Typography variant="h4" color="blue-gray">
-          Sign Up
-        </Typography>
-        <Typography color="gray" className="mt-1 font-normal">
-          Nice to meet you! Enter your details to register.
-        </Typography>
-        <form onSubmit={handleSubmit(onSubmit)} className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
-          <div className="mb-1 flex flex-col gap-6">
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Who you are?
-            </Typography>
-            <div className="w-full">
-              <Select defaultValue="default" label="User Type" onChange={(e) => setRole(e)} required>
-                <Option value="Participants">Participants</Option>
-                <Option value="Organizers">Organizers</Option>
-                <Option value="Healthcare-Professionals">Healthcare Professionals</Option>
-              </Select>
-            </div>
+<Card color="transparent" shadow={false}>
+  <Typography variant="h4" color="blue-gray">
+    Sign Up
+  </Typography>
+  <Typography color="gray" className="mt-1 font-normal">
+    Nice to meet you! Enter your details to register.
+  </Typography>
+  <form onSubmit={handleSubmit(onSubmit)} className="mt-8 mb-2 w-80 max-w-screen-lg sm:w-96">
+    <div className="mb-1 flex flex-col gap-6">
+      <Typography variant="h6" color="blue-gray" className="-mb-3">
+        Who you are?
+      </Typography>
+      <div className="w-full">
+        <Select defaultValue="default" label="User Type" onChange={(e) => setRole(e)} required>
+          <Option value="Participants">Participants</Option>
+          <Option value="Organizers">Organizers</Option>
+          <Option value="Healthcare-Professionals">Healthcare Professionals</Option>
+        </Select>
+      </div>
 
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Your Name
-            </Typography>
-            <Input
-              {...register("name", { required: true })}
-              size="lg"
-              placeholder="Name"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Profile Image
-            </Typography>
-            <input
-              {...register('image', { required: true })} type="file"
-              className="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-gray-900 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600
-            file:bg-gray-50 file:border-0
-            file:bg-gray-100 file:me-4
-              file:py-3 file:px-4
-            dark:file:bg-gray-700 dark:file:text-gray-400"></input>
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Your Email
-            </Typography>
-            <Input
-              {...register("email", { required: true })}
-              size="lg"
-              placeholder="name@mail.com"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Your Phone Number
-            </Typography>
-            <Input
-              {...register("phone", { required: true })}
-              type="tel"
-              size="lg"
-              placeholder="Your Phone Number"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
-            <Typography variant="h6" color="blue-gray" className="-mb-3">
-              Password
-            </Typography>
-            <Input
-              {...register("password", { required: true })}
-              type="password"
-              size="lg"
-              placeholder="********"
-              className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
-              labelProps={{
-                className: "before:content-none after:content-none",
-              }}
-            />
+      <Typography variant="h6" color="blue-gray" className="-mb-3">
+        Your Name
+      </Typography>
+      <Input
+        {...register("name", { required: true })}
+        size="lg"
+        placeholder="Name"
+        className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+        labelProps={{
+          className: "before:content-none after:content-none",
+        }}
+      />
+      <Typography variant="h6" color="blue-gray" className="-mb-3">
+        Profile Image
+      </Typography>
+      <input
+        {...register('image', { required: true })} type="file"
+        className="block w-full border border-gray-200 shadow-sm rounded-lg text-sm focus:z-10 focus:border-gray-900 disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700 dark:text-gray-400 dark:focus:outline-none dark:focus:ring-1 dark:focus:ring-gray-600
+      file:bg-gray-50 file:border-0
+      file:bg-gray-100 file:me-4
+        file:py-3 file:px-4
+      dark:file:bg-gray-700 dark:file:text-gray-400"></input>
+      <Typography variant="h6" color="blue-gray" className="-mb-3">
+        Your Email
+      </Typography>
+      <Input
+        {...register("email", { required: true })}
+        size="lg"
+        placeholder="name@mail.com"
+        className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+        labelProps={{
+          className: "before:content-none after:content-none",
+        }}
+      />
+      <Typography variant="h6" color="blue-gray" className="-mb-3">
+        Your Phone Number
+      </Typography>
+      <Input
+        {...register("phone", { required: true })}
+        type="tel"
+        size="lg"
+        placeholder="Your Phone Number"
+        className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+        labelProps={{
+          className: "before:content-none after:content-none",
+        }}
+      />
+      <Typography variant="h6" color="blue-gray" className="-mb-3">
+        Password
+      </Typography>
+      <Input
+        {...register("password", { required: true })}
+        type="password"
+        size="lg"
+        placeholder="********"
+        className=" !border-t-blue-gray-200 focus:!border-t-gray-900"
+        labelProps={{
+          className: "before:content-none after:content-none",
+        }}
+      />
 
-          </div>
-          <Button type="submit" className="mt-6" fullWidth>
-            sign up
-          </Button>
-          <Typography color="gray" className="mt-4 text-center font-normal">
-            Already have an account?{" "}
-            <NavLink to="/login" className="font-medium text-gray-900">
-              Login Now
-            </NavLink>
-          </Typography>
-        </form>
-      </Card>
     </div>
+    <Button type="submit" className="mt-6" fullWidth>
+      sign up
+    </Button>
+    <Typography color="gray" className="mt-4 text-center font-normal">
+      Already have an account?{" "}
+      <NavLink to="/login" className="font-medium text-gray-900">
+        Login Now
+      </NavLink>
+    </Typography>
+  </form>
+</Card>
+</div>
+    </>
 
   )
 }

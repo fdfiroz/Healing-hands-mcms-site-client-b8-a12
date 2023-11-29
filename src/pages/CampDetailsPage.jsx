@@ -25,6 +25,7 @@ import { useState } from "react";
 import useRole from "../hooks/useRole";
 import RegisterModal from "../components/Modals/RegisterModal";
 import Container from "../components/Containar/Container";
+import { Helmet } from "react-helmet-async";
 
 const CampDetailsPage = () => {
   const { loading, user } = useAuth()
@@ -52,6 +53,10 @@ const handelRegister = () => {
   if (isPending) return <Loading />
   return (
     <>
+    <Helmet>
+        <title>{data?.campName}</title>
+        <meta name="description" content={data?.campName} />
+    </Helmet>
       <Container>
       <Card className="max-w-full overflow-hidden">
         <CardHeader

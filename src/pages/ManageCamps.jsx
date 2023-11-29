@@ -7,7 +7,8 @@ import Container from "../components/Containar/Container";
 import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import UpdateCampModal from "../components/Modals/UpdateCampModal";
- 
+import { Helmet } from "react-helmet-async";
+
 const TABLE_HEAD = ["Camp Name", "Scheduled Date and Time", "Venue Location", "Services Provided", "Healthcare Professionals", "Audience", "Camp Fees", "Participant Count", "Action",];
  
 
@@ -53,6 +54,10 @@ const ManageCamps = () => {
   }
   
   return (
+   <>
+    <Helmet>
+        <title>Manage Camps</title>
+    </Helmet>
    <Container>
       <div className="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
      <Card className="h-full w-full overflow-scroll">
@@ -189,6 +194,7 @@ const ManageCamps = () => {
     </div>
     <UpdateCampModal open={open} setOpen={setOpen} camp={camp} refetch={refetch}/>
    </Container>
+   </>
   )
 }
 

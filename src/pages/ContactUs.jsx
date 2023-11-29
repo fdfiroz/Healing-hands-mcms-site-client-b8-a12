@@ -2,6 +2,7 @@ import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import Container from "../components/Containar/Container"
 import 'leaflet/dist/leaflet.css';
 import { Input,Button, Textarea, Typography } from '@material-tailwind/react';
+import { Helmet } from "react-helmet-async";
 
 
 
@@ -12,6 +13,10 @@ const tileLayer = {
 }
 const ContactUs   = () => {
   return (
+   <>
+   <Helmet>
+        <title>Contact Us</title>
+      </Helmet>
    <Container>
       <MapContainer style={{ height: "300px", width: "300", zIndex:-1}}  center={center} zoom={15} scrollWheelZoom={false}>
       <TileLayer {...tileLayer} />
@@ -48,6 +53,7 @@ const ContactUs   = () => {
       </form>
   </div>
    </Container>
+   </>
   )
 }
 

@@ -2,7 +2,7 @@ import axios from "axios";
 import useAuth from "./useAuth";
 import toast from "react-hot-toast";
 const instance = axios.create({
-    baseURL: 'http://localhost:5000/api/v1',
+    baseURL: 'https://b8a12-server-side-fdfiroz-category-0016.vercel.app/api/v1',
     withCredentials : true,
     
   });

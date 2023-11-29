@@ -1,8 +1,12 @@
 import { Card, Typography } from "@material-tailwind/react"
-import Container from "../components/Containar/Container"
+import { Helmet } from "react-helmet-async";
 
 const ErrorPage = () => {
   return (
+    <>
+    <Helmet>
+        <title>404</title>
+    </Helmet>
     <Card  className="grid h-[calc(100vh-80px)] px-4 bg-white place-content-center">
     <div className="text-center">
       <svg
@@ -45,6 +49,7 @@ const ErrorPage = () => {
       <p className="mt-4 text-gray-500">We can't find that page.</p>
     </div>
   </Card>
+    </>
   )
 }
 
