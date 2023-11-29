@@ -29,16 +29,15 @@ const ProfileUpdate = ({open, setOpen, user, role}) => {
   })
   const [file, setFile] = useState();
 
-console.log(role.phone)
   useEffect(()=>{
     if(user){
       setUpdateProfile({
         displayName: user?.displayName,
         image: user?.photoURL,
-        phone: role.phone,
+        phone: role?.phone,
       })
     }
-  }, [user, role.phone])
+  }, [user, role?.phone])
    
   const onChange = (e) =>{
     setUpdateProfile({

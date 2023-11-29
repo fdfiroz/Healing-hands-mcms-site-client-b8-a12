@@ -37,8 +37,8 @@ const handelChangePass = () => {
 }
   
 console.log(role)
-  if (isLoading) return <Loading/>
 if (loading) return <Loading/>
+  if (isLoading) return <Loading/>
   return (
    <>
    <Helmet>

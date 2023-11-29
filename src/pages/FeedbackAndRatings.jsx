@@ -15,10 +15,10 @@ const FeedbackAndRatings = () => {
   const [open, setOpen] = useState(false)
   const [feedback, setFeedBack] = useState({})
   const {data:feedbacks , isLoading} = useQuery({
-    queryKey : ["confirm-payment"],
+    queryKey : ["confirm-payment", user?.email],
     enabled: !!user?.email,
     queryFn: async() => {
-      const data = await axios.get(`/confirmed-register-camps/${user.email}`)
+      const data = await axios.get(`/confirmed-register-camps/${user?.email}`)
       return data.data
     }
   })
@@ -54,7 +54,7 @@ if (isLoading) return <Loading/>
         </thead>
         <tbody>
           {feedbacks.map((feedback, index) => (
-            <tr key={name} className="even:bg-blue-gray-50/50">
+            <tr key={feedback._id} className="even:bg-blue-gray-50/50">
               <td className="p-4">
                 <Typography variant="small" color="blue-gray" className="font-normal">
                   {feedback.campName}
