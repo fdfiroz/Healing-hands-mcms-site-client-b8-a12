@@ -41,9 +41,11 @@ const DashboardLayout = () => {
     </Tooltip>
       <Drawer overlay={false} open={open} onClose={closeDrawer}>
         <div className="mb-2 flex items-center justify-between p-4">
+          <NavLink to={"/dashboard"}>
           <Typography variant="h5" color="blue-gray">
           <img className="w-13 h-5 lg:w-25 lg:h-10" src={logo} alt="" />
           </Typography>
+          </NavLink>
           <IconButton variant="text" color="blue-gray" onClick={closeDrawer}>
             <svg
               xmlns="http://www.w3.org/2000/svg"
