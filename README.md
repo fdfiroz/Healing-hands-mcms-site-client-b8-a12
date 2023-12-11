@@ -1,5 +1,3 @@
-# assignment12_category_0016
-
 # Medical Camp Management System
 
 The Medical Camp Management System (MCMS) is an user-friendly MERN (MongoDB, Express.js, React, Node.js) application designed to streamline the organization and management of medical camps. This comprehensive system caters to the needs of three pivotal user roles: Organizers, Healthcare Professionals, and Participants, ensuring seamless coordination and optimal functionality.
